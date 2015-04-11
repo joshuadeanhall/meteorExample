@@ -1,0 +1,35 @@
+<head>
+  <title>informerApp</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+
+<div>
+This is a test
+
+
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+
+
+    <ul>
+      {{#each images}}
+        {{> image}}
+      {{/each}}
+    </ul>
+
+</div>
+</body>
+
+
+<template name="task">
+  <li>{{text}}</li>
+</template>
+
+<template name="image">
+  <li><img src="{{text}}" /></li>
+</template>
