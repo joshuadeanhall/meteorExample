@@ -6,19 +6,36 @@ if (Meteor.isClient) {
 
 Template.imageList.rendered = function() {
 	var self = this;
-	$(".carousel").carousel("pause").removeData();
-	$(".carousel").carousel();
-	console.log('renderingImageList');
 
+	$(".carousel").carousel();
 	Meteor.subscribe("imageChanged", function() {
 		console.log("real change event");
 	});
+
+	Meteor.autosubscribe(function() {
+
+
+	var cursor = Images.find({});
+
+	var handle = cursor.observe({
+		added: function(item) {
+			alert('added');	
+			$(".carousel").carousel("pause").removeData();
+			$(".carousel").carousel();
+		},
+		changed: function(item) {
+			alert('changednew');
+		}
+	});
+
+	});
+
 	self.autorun(function() {
 		self.subscribe("imageChanged", function() {
 			console.log('imageChanged event');
 			Tracker.autorun(function() {
 				var query = Images.find({});
-				updateCarousel();
+				updateFunction();
 			});
 		});
 	});
@@ -31,15 +48,12 @@ Template.imageList.helpers({
 }
 );
 
-function updateCarousel() {
-	//alert('updateit');
-	console.log('updating carousel');
+function updateFunction() {
+	console.log('updating');
 
 }
 
 }
-
-
 
 
 if (Meteor.isServer) {
