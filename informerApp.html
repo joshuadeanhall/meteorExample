@@ -3,27 +3,19 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
 <div>
-This is a test
-
-
-    <ul>
-      {{#each tasks}}
-        {{> task}}
-      {{/each}}
-    </ul>
-
-
-    <ul>
-      {{#each images}}
-        {{> image}}
-      {{/each}}
-    </ul>
+{{> imageList}}
 
 </div>
 </body>
+
+<template name="tasksList">
+<ul>
+{{#each tasks}}
+  {{> task}}
+{{/each}}
+</ul>
+</template>
 
 
 <template name="task">
@@ -32,4 +24,24 @@ This is a test
 
 <template name="image">
   <li><img src="{{text}}" /></li>
+</template>
+
+<template name="imageList">
+<div id="carousel-josh" class="carousel slide" data-ride="carousel">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+   {{#each images}}
+	{{> imageDisplay}}
+   {{/each}}
+  </div>
+</div>
+
+</template>
+
+
+<template name="imageDisplay">
+	<div class="item">
+		<img src="{{imgSrc}}">
+	</div>
+
 </template>
